@@ -5,7 +5,7 @@ export interface iUser {
   email: string;
   nome: string;
   cognome: string;
-  avatar: string;
+  avatar?: string;
   roles: Role[];
 }
 

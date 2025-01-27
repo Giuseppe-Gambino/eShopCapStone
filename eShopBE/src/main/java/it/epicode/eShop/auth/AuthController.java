@@ -17,12 +17,12 @@ public class AuthController {
     private final AppUserService appUserService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest) {
-        appUserService.registerUser(
+    public ResponseEntity<AppUser> register(@RequestBody RegisterRequest registerRequest) {
+        AppUser newUser = appUserService.registerUser(
                 registerRequest,
                 Set.of(Role.ROLE_USER) // Assegna il ruolo di default
         );
-        return ResponseEntity.ok("Registrazione avvenuta con successo");
+        return ResponseEntity.ok(newUser);
     }
 
     @PostMapping("/login")

@@ -34,10 +34,7 @@ export class AuthService {
   }
 
   register(userData: Partial<iUser>) {
-    const formData = new FormData();
-    formData.append('appUser', JSON.stringify(userData));
-
-    return this.http.post<iUser>(this.registerUrl, formData);
+    return this.http.post<iUser>(this.registerUrl, userData);
   }
 
   login(authData: iLoginRequest) {
