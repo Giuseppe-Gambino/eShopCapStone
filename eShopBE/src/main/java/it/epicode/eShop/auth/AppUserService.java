@@ -52,14 +52,23 @@ public class AppUserService {
         return appUserRepository.findByUsername(username);
     }
 
-    public String authenticateUser(String username, String password)  {
+    public AuthResponse authenticateUser(String username, String password)  {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password)
             );
 
+            AppUser appUser = loadUserByUsername(username);
+
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            return jwtTokenUtil.generateToken(userDetails);
+
+            AuthResponse authResponse = new AuthResponse();
+            authResponse.setToken(jwtTokenUtil.generateToken(userDetails));
+
+            authResponse.setUser(appUser);
+
+            return authResponse;
+
         } catch (AuthenticationException e) {
             throw new SecurityException("Credenziali non valide", e);
         }

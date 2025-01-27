@@ -9,6 +9,11 @@ const routes: Routes = [
     canActivate: [GuestGuard],
     canActivateChild: [GuestGuard],
   },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./pages/home/home.module').then((m) => m.HomeModule),
+  },
 ];
 
 @NgModule({

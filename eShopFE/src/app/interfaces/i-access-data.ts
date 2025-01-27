@@ -1,6 +1,6 @@
 import { iUser } from './i-user';
 
 export interface iAccessData {
-  accessToken: string;
+  token: string;
   user: iUser;
 }

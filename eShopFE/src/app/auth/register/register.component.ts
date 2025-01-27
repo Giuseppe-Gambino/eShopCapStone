@@ -11,7 +11,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent {
   form!: FormGroup;
-  avatarFile?: File;
 
   constructor(
     private authSvc: AuthService,
@@ -30,12 +29,6 @@ export class RegisterComponent {
     });
   }
 
-  onFileChange(event: any) {
-    if (event.target.files.length > 0) {
-      this.avatarFile = event.target.files[0];
-    }
-  }
-
   register() {
     if (this.form.valid) {
       const formData: Partial<iUser> = {
@@ -46,7 +39,7 @@ export class RegisterComponent {
         password: this.form.value.password,
       };
 
-      this.authSvc.register(formData, this.avatarFile).subscribe({
+      this.authSvc.register(formData).subscribe({
         next: (res) => {
           this.router.navigate(['/auth/login']);
           alert('Registrazione effettuata correttamente');

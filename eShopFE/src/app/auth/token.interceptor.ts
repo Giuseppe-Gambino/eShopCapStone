@@ -17,7 +17,6 @@ export class TokenInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    // Escludi la richiesta di login dall'intercettazione
     if (request.url.includes(environment.loginUrl)) {
       return next.handle(request);
     }
@@ -30,7 +29,7 @@ export class TokenInterceptor implements HttpInterceptor {
     const newRequest = request.clone({
       headers: request.headers.append(
         'Authorization',
-        `Bearer ${accessData.accessToken}`
+        `Bearer ${accessData.token}`
       ),
     });
 
